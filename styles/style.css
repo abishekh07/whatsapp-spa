@@ -19,13 +19,17 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: 400;
   color: #4c4c4c;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .container {
   width: 70rem;
+  height: 100%;
   margin: 0 auto;
   padding: 3rem 6rem;
   background-color: #f9f9f9;
+  border: 1px solid #d3d3d3;
 }
 
 .header__search {
@@ -55,7 +59,31 @@ body {
 }
 
 .navbar__item {
+  color: inherit;
   font-weight: 700;
   text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 1rem;
+  border-bottom: 4px solid transparent;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.navbar__item.active {
+  color: #0e7067;
+  border-color: currentColor;
+}
+
+.main {
+  margin-top: 3rem;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */
