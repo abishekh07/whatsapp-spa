@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Whatsapp SPA</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <input type="text" placeholder="Search..." class="header__search" />
+
+        <nav class="navbar">
+          <a
+            href=""
+            role="tab"
+            data-tab="pinned-chats"
+            data-switcher
+            class="navbar__item active"
+            >Pinned Chats</a
+          ><a
+            href=""
+            role="tab"
+            data-tab="dm-chats"
+            data-switcher
+            class="navbar__item"
+            >DMs</a
+          ><a
+            href=""
+            role="tab"
+            data-tab="group-chats"
+            data-switcher
+            class="navbar__item"
+            >Group Chats</a
+          ><a
+            href=""
+            role="tab"
+            data-tab="contacts"
+            data-switcher
+            class="navbar__item"
+            >Contacts</a
+          >
+        </nav>
+      </header>
+
+      <main class="main">
+        <div class="pages">
+          <div class="page" id="pinned-chats">
+            <h1>Pinned Chats</h1>
+          </div>
+          <div class="page" id="dm-chats">
+            <h1>Direct Messages</h1>
+          </div>
+          <div class="page" id="group-chats">
+            <h1>Group Chats</h1>
+          </div>
+          <div class="page" id="contacts">
+            <h1>Contacts</h1>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
