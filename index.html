@@ -26,7 +26,7 @@
             data-tab="dm-chats"
             data-switcher
             class="navbar__item"
-            >DMs</a
+            >All Chats</a
           ><a
             href=""
             role="tab"
@@ -47,7 +47,7 @@
 
       <main class="main">
         <div class="pages">
-          <div class="page" id="pinned-chats">
+          <div class="page active" id="pinned-chats">
             <h1>Pinned Chats</h1>
           </div>
           <div class="page" id="dm-chats">
@@ -62,5 +62,31 @@
         </div>
       </main>
     </div>
+
+    <script>
+      const tabSwitchers = document.querySelectorAll("[data-switcher]")
+
+      tabSwitchers.forEach((switcher) => {
+        const pageId = switcher.dataset.tab
+
+        switcher.addEventListener("click", (e) => {
+          e.preventDefault()
+          const activeTab = document.querySelector(".navbar__item.active")
+
+          activeTab.classList.remove("active")
+          switcher.classList.add("active")
+
+          switchPage(pageId)
+        })
+      })
+
+      function switchPage(pageId) {
+        const currentPage = document.querySelector(".pages .page.active")
+        currentPage.classList.remove("active")
+
+        const clickedPage = document.querySelector(`.pages .page#${pageId}`)
+        clickedPage.classList.add("active")
+      }
+    </script>
   </body>
 </html>
