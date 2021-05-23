@@ -57,7 +57,7 @@
             <h1>Group Chats</h1>
           </div>
           <div class="page" id="contacts">
-            <h1>Contact</h1>
+            <h1>Contacts</h1>
           </div>
         </div>
       </main>
@@ -82,9 +82,9 @@
 
       function switchPage(pageId) {
         const currentPage = document.querySelector(".pages .page.active")
-        currentPage.classList.remove("active")
-
         const clickedPage = document.querySelector(`.pages .page#${pageId}`)
+
+        currentPage.classList.remove("active")
         clickedPage.classList.add("active")
       }
     </script>
