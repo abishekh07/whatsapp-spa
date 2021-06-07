@@ -18,16 +18,16 @@
             role="tab"
             data-tab="pinned-chats"
             data-switcher
-            class="navbar__item active"
+            class="navbar__item"
             >Pinned Chats</a
           >
 
           <a
             href=""
             role="tab"
-            data-tab="dm-chats"
+            data-tab="all-chats"
             data-switcher
-            class="navbar__item"
+            class="navbar__item active"
             >All Chats</a
           >
 
@@ -53,46 +53,24 @@
 
       <main class="main">
         <div class="pages">
-          <div class="page active" id="pinned-chats">
-            <h1>Pinned Chats</h1>
+          <ul class="dropdown hidden">
+            <li class="option-one"></li>
+            <li class="option-two" id="delete">Delete Chat</li>
+          </ul>
+
+          <div class="overlay">
+            <div class="loader"></div>
           </div>
-          <div class="page" id="dm-chats">
-            <h1>Direct Messages</h1>
-          </div>
-          <div class="page" id="group-chats">
-            <h1>Group Chats</h1>
-          </div>
-          <div class="page" id="contacts">
-            <h1>Contacts</h1>
+          <div class="main-page">
+            <div class="loader"></div>
           </div>
         </div>
       </main>
     </div>
 
     <script>
-      const tabSwitchers = document.querySelectorAll("[data-switcher]")
-
-      tabSwitchers.forEach((switcher) => {
-        const pageId = switcher.dataset.tab
-
-        switcher.addEventListener("click", (e) => {
-          e.preventDefault()
-          const activeTab = document.querySelector(".navbar__item.active")
-
-          activeTab.classList.remove("active")
-          switcher.classList.add("active")
-
-          switchPage(pageId)
-        })
-      })
-
-      function switchPage(pageId) {
-        const currentPage = document.querySelector(".pages .page.active")
-        const clickedPage = document.querySelector(`.pages .page#${pageId}`)
-
-        currentPage.classList.remove("active")
-        clickedPage.classList.add("active")
-      }
+      let searchFilter = ""
+      const Main_Page = document.querySelector(".main-page")
     </script>
 
     <script src="./scripts/faker.min.js"></script>

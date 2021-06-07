@@ -1,9 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap");
 
 $primary-bg: #f9f9f9;
+$secondary-bg: #e8e8e8;
 $body-txt-color: #4c4c4c;
 $highlight-color: #075e54;
+$warning-color: #b00020;
 $border-color: #d3d3d3;
+$base-transition: all 0.3s ease-out;
 
 *,
 *::before,
@@ -16,6 +19,10 @@ $border-color: #d3d3d3;
 html {
   font-size: 62.5%;
   box-sizing: border-box;
+
+  @media only screen and (max-width: 43.75em) {
+    font-size: 55%;
+  }
 }
 
 body {
@@ -27,17 +34,32 @@ body {
   overflow: hidden;
 }
 
+#dm-chats::webkit-scrollbar {
+  display: none;
+  width: 1rem;
+}
+
 .container {
   width: 70rem;
   margin: 0 auto;
   overflow: hidden;
-  padding: 3rem 6rem;
+  padding: 3rem 5rem;
   background-color: $primary-bg;
   border: 1px solid $border-color;
+
+  @media only screen and (max-width: 43.75em) {
+    width: 100%;
+    padding: 3rem 1rem;
+    border-bottom: none;
+  }
 }
 
 .header {
   height: 20vh;
+
+  @media only screen and (max-width: 43.75em) {
+    height: auto;
+  }
 
   &__search {
     display: block;
@@ -67,7 +89,12 @@ body {
     letter-spacing: 0.5px;
     padding-bottom: 1rem;
     border-bottom: 4px solid transparent;
-    transition: all 0.3s ease-out;
+    transition: $base-transition;
+
+    @media only screen and (max-width: 43.75em) {
+      font-size: 1.4rem;
+      border-bottom-width: 2px;
+    }
 
     &.active {
       color: $highlight-color;
@@ -80,25 +107,101 @@ body {
   margin-top: 3rem;
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: $primary-bg, $alpha: 1);
+  z-index: 2;
+  display: none;
+
+  .loader {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    border: 5px solid #e4e4e4;
+    border-top-color: $highlight-color;
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 1s infinite linear;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
 .pages {
   height: 65vh;
   overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+
+  @media only screen and (max-width: 43.75em) {
+    height: 75vh;
+  }
+
+  .main-page {
+    overflow-x: hidden;
+    position: inherit;
+  }
 }
 
-.page {
-  display: none;
+.dropdown {
+  position: absolute;
+  z-index: 3;
+  list-style: none;
+  background-color: #fff;
+  padding: 1.8rem 1.6rem;
+  border: 1px solid $border-color;
+  border-radius: 5px;
 
-  &.active {
-    display: block;
+  &.hidden {
+    top: -200% !important;
+    left: -200% !important;
+    display: none !important;
+  }
+
+  li {
+    cursor: pointer;
+    transition: $base-transition;
+
+    &:hover {
+      filter: contrast(150%);
+    }
+
+    &:first-child {
+      color: $highlight-color;
+      margin-bottom: 1.5rem;
+    }
+
+    &:last-child {
+      color: $warning-color;
+    }
   }
 }
 
 .user {
+  cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 1rem 1.5rem;
+  transition: $base-transition;
 
-  &:not(:last-child) {
-    margin-bottom: 3rem;
+  &:hover {
+    background-color: $secondary-bg;
   }
 
   &__image {
@@ -109,6 +212,11 @@ body {
       height: 72px;
       border-radius: 50%;
       overflow: hidden;
+
+      @media only screen and (max-width: 43.75em) {
+        width: 55px;
+        height: 55px;
+      }
     }
   }
 
@@ -116,6 +224,15 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 1rem;
+    width: 100%;
+
+    @media only screen and (max-width: 43.75em) {
+      row-gap: 0.45rem;
+    }
+
+    & > *:nth-child(even) {
+      justify-self: flex-end;
+    }
 
     &--name {
       font-size: 2rem;
@@ -123,8 +240,19 @@ body {
 
     &--msg {
       font-size: 1.4rem;
+      overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+
+    &--time {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      & > :first-child {
+        font-size: 60%;
+      }
     }
   }
 }

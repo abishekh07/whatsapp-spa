@@ -1,3 +1,5 @@
+"use strict"
+
 function setUserData() {
   const fakeUsers = []
 
@@ -16,17 +18,66 @@ function setUserData() {
 }
 
 const userData = getUsers() || setUserData()
+populateData(document.querySelector(".navbar__item.active"))
 
-renderUsers(userData)
+/* Search Event Listener */
+
+const searchInput = document.querySelector(".header__search")
+
+searchInput.addEventListener("input", (e) => {
+  searchFilter = e.target.value
+  populateData(document.querySelector(".navbar__item.active"))
+})
 
 function refreshData() {
   userData.forEach((user) => {
-    user.lastmsgtime = faker.datatype.datetime().getTime()
+    user.lastmsgtime = faker.date.recent().getTime()
   })
 
   saveUsers(userData)
-  newUserData = getUsers()
-  renderUsers(newUserData)
+
+  const dropdown = document.querySelector(".dropdown")
+  if (!dropdown.classList.contains("hidden")) {
+    dropdown.classList.add("hidden")
+  }
+
+  populateData(document.querySelector(".navbar__item.active"))
 }
 
-// setInterval(refreshData, 3000)
+setInterval(refreshData, 30000)
+
+/* Tabs */
+
+const tabSwitchers = document.querySelectorAll("[data-switcher]")
+
+tabSwitchers.forEach((switcher) => {
+  switcher.addEventListener("click", (e) => {
+    e.preventDefault()
+    const activeTab = document.querySelector(".navbar__item.active")
+
+    activeTab.classList.remove("active")
+    switcher.classList.add("active")
+
+    populateData(switcher)
+  })
+})
+
+Main_Page.addEventListener("contextmenu", (e) => {
+  const displayedTab = document.querySelector(".navbar__item.active").dataset
+    .tab
+
+  if (
+    (displayedTab === "pinned-chats" || displayedTab === "all-chats") &&
+    e.target.closest(".user")
+  ) {
+    e.preventDefault()
+
+    showCustomMenu(e, displayedTab)
+  }
+})
+
+const dropdown = document.querySelector(".dropdown")
+dropdown.addEventListener("click", (e) => {
+  modifyChat(e)
+  dropdown.classList.add("hidden")
+})
