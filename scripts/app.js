@@ -70,9 +70,11 @@ Main_Page.addEventListener("contextmenu", (e) => {
     (displayedTab === "pinned-chats" || displayedTab === "all-chats") &&
     e.target.closest(".user")
   ) {
-    e.preventDefault()
+    if (!e.target.classList.contains("image")) {
+      e.preventDefault()
 
-    showCustomMenu(e, displayedTab)
+      showCustomMenu(e, displayedTab)
+    }
   }
 })
 
@@ -80,4 +82,8 @@ const dropdown = document.querySelector(".dropdown")
 dropdown.addEventListener("click", (e) => {
   modifyChat(e)
   dropdown.classList.add("hidden")
+})
+
+window.addEventListener("mouseup", (e) => {
+  if (e.target !== dropdown) dropdown.classList.add("hidden")
 })

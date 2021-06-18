@@ -46,27 +46,27 @@ function modifyChat(e) {
     (user) => user.id === selectedUserId.textContent
   )
 
-  const targetUserIndex = userData.findIndex(
+  const targetedUserIndex = userData.findIndex(
     (user) => user.id === selectedUserId.textContent
   )
 
-  const targetUserCategories = targetUser.category.split(" / ")
+  const targetedUserCategories = targetUser.category.split(" / ")
 
   switch (e.target.id) {
     case "pin":
-      if (targetUserCategories[0] === "all") {
-        targetUserCategories[0] = "pinned"
-        targetUser.category = targetUserCategories.join(" / ")
+      if (targetedUserCategories[0] === "all") {
+        targetedUserCategories[0] = "pinned"
+        targetUser.category = targetedUserCategories.join(" / ")
       }
       break
     case "unpin":
-      if (targetUserCategories[0] === "pinned") {
-        targetUserCategories[0] = "all"
-        targetUser.category = targetUserCategories.join(" / ")
+      if (targetedUserCategories[0] === "pinned") {
+        targetedUserCategories[0] = "all"
+        targetUser.category = targetedUserCategories.join(" / ")
       }
       break
     case "delete":
-      userData.splice(targetUserIndex, 1)
+      userData.splice(targetedUserIndex, 1)
       break
   }
 
@@ -97,10 +97,6 @@ function showCustomMenu(evt, tab) {
   dropdown.style.top = `${y}px`
   dropdown.style.left = `${x}px`
   dropdown.style.display = "block"
-
-  dropdown.addEventListener("mouseleave", () => {
-    dropdown.classList.add("hidden")
-  })
 }
 
 function populateData(tab) {
@@ -178,10 +174,12 @@ function generateUserDOM(users) {
     const time = new Date(user.lastmsgtime)
 
     if (time != "Invalid Date") {
-      let realTime = time.toLocaleTimeString()
+      let realTime = time.toLocaleDateString("en-us", {
+        hour: "numeric",
+        minute: "numeric",
+      })
 
-      realTime =
-        realTime.split(" ")[0].slice(0, -3) + " " + realTime.split(" ")[1]
+      realTime = realTime.split(",")[1]
 
       timeMinutes.textContent = realTime
       timeMonth.textContent = `${time.getMonth()}/${time.getFullYear()}`
