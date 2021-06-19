@@ -15,17 +15,43 @@ function saveUsers(users) {
   localStorage.setItem("users", JSON.stringify(users))
 }
 
-const loader = document.querySelector(".pages .overlay")
+function handleEmptyState(query) {
+  let currTabName = document.querySelector(".navbar__item.active").dataset.tab
+  currTabName = currTabName.split("-").join(" ")
 
-function showLoader() {
-  loader.style.display = "block"
-  document.querySelector(".pages").style.overflowY = "hidden"
+  console.log(`The ${currTabName} tab is empty!!`)
+
+  const emptyState = document.createElement("div")
+  emptyState.setAttribute("class", "empty")
+
+  const emptyIcon = document.createElement("img")
+  emptyIcon.setAttribute("class", "empty__icon")
+  emptyIcon.setAttribute("src", "../empty.svg")
+
+  const emptyMessage = document.createElement("p")
+  emptyMessage.setAttribute("class", "empty__message")
+
+  if (!query) {
+    emptyMessage.innerHTML = `You have no <span>${currTabName}</span> here. Try switching the tabs from above!</em>`
+  } else {
+    emptyMessage.innerHTML = `No results found for "<span>${query}</span>"`
+  }
+
+  emptyState.append(emptyIcon, emptyMessage)
+  Main_Page.appendChild(emptyState)
 }
 
-function hideLoader() {
-  loader.style.display = "none"
-  document.querySelector(".pages").style.overflowY = "auto"
-}
+// const loader = document.querySelector(".pages .overlay")
+
+// function showLoader() {
+//   loader.style.display = "block"
+//   document.querySelector(".pages").style.overflowY = "hidden"
+// }
+
+// function hideLoader() {
+//   loader.style.display = "none"
+//   document.querySelector(".pages").style.overflowY = "auto"
+// }
 
 function sortUserData(userData) {
   return userData.sort((a, b) => {
@@ -75,7 +101,6 @@ function modifyChat(e) {
 }
 
 function showCustomMenu(evt, tab) {
-  const dropdown = document.querySelector(".dropdown")
   dropdown.classList.remove("hidden")
 
   selectedUserId = evt.target.closest(".user").childNodes[1].childNodes[3]
@@ -198,10 +223,17 @@ function generateUserDOM(users) {
 function renderUsers(incomingData) {
   Main_Page.innerHTML = ""
 
+  if (Array.isArray(incomingData) && !incomingData.length) {
+    handleEmptyState()
+    return
+  }
+
   const sortedUsers = sortUserData(incomingData)
   const filteredUsers = getSearchResults(sortedUsers)
 
-  generateUserDOM(filteredUsers)
+  filteredUsers.length > 0
+    ? generateUserDOM(filteredUsers)
+    : handleEmptyState(searchFilter)
 
   // showLoader()
   // setTimeout(() => {

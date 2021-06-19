@@ -36,7 +36,6 @@ function refreshData() {
 
   saveUsers(userData)
 
-  const dropdown = document.querySelector(".dropdown")
   if (!dropdown.classList.contains("hidden")) {
     dropdown.classList.add("hidden")
   }
@@ -65,20 +64,16 @@ tabSwitchers.forEach((switcher) => {
 Main_Page.addEventListener("contextmenu", (e) => {
   const displayedTab = document.querySelector(".navbar__item.active").dataset
     .tab
+  const targetTabs =
+    displayedTab === "pinned-chats" || displayedTab === "all-chats"
 
-  if (
-    (displayedTab === "pinned-chats" || displayedTab === "all-chats") &&
-    e.target.closest(".user")
-  ) {
-    if (!e.target.classList.contains("image")) {
-      e.preventDefault()
+  if (targetTabs && e.target.closest(".user")) {
+    e.preventDefault()
 
-      showCustomMenu(e, displayedTab)
-    }
+    showCustomMenu(e, displayedTab)
   }
 })
 
-const dropdown = document.querySelector(".dropdown")
 dropdown.addEventListener("click", (e) => {
   modifyChat(e)
   dropdown.classList.add("hidden")

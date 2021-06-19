@@ -27,6 +27,7 @@ body {
   color: #4c4c4c;
   height: 100vh;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #dm-chats::webkit-scrollbar {
@@ -112,6 +113,36 @@ body {
 
 .main {
   margin-top: 3rem;
+}
+
+.empty {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  margin-top: 10vh;
+}
+
+.empty__icon {
+  width: 10rem;
+}
+
+.empty__message {
+  color: #075e54;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.empty__message span {
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .overlay {

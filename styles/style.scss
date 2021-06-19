@@ -32,6 +32,7 @@ body {
   color: $body-txt-color;
   height: 100vh;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #dm-chats::webkit-scrollbar {
@@ -105,6 +106,29 @@ body {
 
 .main {
   margin-top: 3rem;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  margin-top: 10vh;
+
+  &__icon {
+    width: 10rem;
+  }
+
+  &__message {
+    color: $highlight-color;
+    margin-top: 3rem;
+    text-align: center;
+
+    span {
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  }
 }
 
 .overlay {
